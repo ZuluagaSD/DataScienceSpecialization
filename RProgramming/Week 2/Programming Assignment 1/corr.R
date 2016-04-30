@@ -40,3 +40,5 @@ corr <- function(directory, threshold = 0) {
     resultVector <- resultDataF$COR
     resultVector
 }
+
+# Intentar con esta: tapply(flags$animate,flags$landmass, mean)
