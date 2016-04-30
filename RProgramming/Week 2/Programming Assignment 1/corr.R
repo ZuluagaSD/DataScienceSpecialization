@@ -7,21 +7,38 @@
 # threshold requirement, then the function should return a numeric vector of 
 # length 0. A prototype of this function follows
 
+source("complete.R")
+
 corr <- function(directory, threshold = 0) {
     
-    moni <- complete("specdata")
+    moni <- complete(directory)
     
-    files <- subset(moni, moni$complete >= threshold)$id
+    files <- subset(moni, moni$nobs >= threshold)$id
+    
+    if (length(files) == 0) { return(numeric()) }
     
     all_files <- list.files(directory, full.names = TRUE)
-    print(all_files[files])
+
     tmpDataSet <- lapply(all_files[files], read.csv)
     
-    output <- do.call(rbind, tmpDataSet)
+    # Get only comple cases
     
-    summary(output)
+    comp <- lapply(tmpDataSet, complete.cases)
+    clean_data <- Map(function(d,c) {d[c,]}, tmpDataSet, comp)
+    clean_data <- lapply(tmpDataSet, function(x) x[complete.cases(x),])
+
+    output <- do.call(rbind, clean_data)
     
-    cor(output$sulfate, output$nitrate, use = "complete.obs")
+    # Get correlation of 2 columns using ddply
+    
+    correlate <- function(output) {
+        return(data.frame(COR = cor(output$sulfate, output$nitrate)))
+    }
+    
+    resultDataF <- ddply(output, .(output$ID), correlate)
+    
+    resultVector <- resultDataF$COR
+    resultVector
 }
 
 corr("specdata/", 150)
