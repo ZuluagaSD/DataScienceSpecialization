@@ -40,5 +40,3 @@ corr <- function(directory, threshold = 0) {
     resultVector <- resultDataF$COR
     resultVector
 }
-
-corr("specdata/", 150)
