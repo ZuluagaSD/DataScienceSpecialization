@@ -53,20 +53,25 @@ rankhospital <- function(state, outcome,  num = "best") {
     
     ## rate
     
-    if (num == "best") {
-        num <- c(1)
-    } else if (num == "worst") {
-        num <- c(1)
-    }
-    
     tmpData[, 2] <- as.numeric(tmpData[, 2])
     tmpData[, 1] <- as.factor(tmpData[, 1])
     tmpData <- tmpData[order(tmpData$Mort.Rate, tmpData$Hospital.Name, decreasing = FALSE), ]
     tmpData <- tmpData[complete.cases(tmpData), ]
     tmpData
-    # rate <- tmpData[num, ]
-    # 
-    # bestRate <- rate[1, sort(1, decreasing = TRUE)]
-    # bestRate <- rate[1, 1]
-    # bestRate
+    
+    if (num == "best") {
+        num <- c(1)
+    } else if (num == "worst") {
+        num <- dim(tmpData)[1]
+    }
+    
+    rate <- tmpData[num, ]
+
+    bestRate <- rate[1, sort(1, decreasing = TRUE)]
+    bestRate <- rate[1, 1]
+    
+    if (is.na(bestRate)) {
+        bestRate <- NA
+    }
+    bestRate
 }
