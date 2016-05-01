@@ -60,5 +60,5 @@ best <- function(state, outcome) {
     rate <- tmpData[which.min(tmpData$Mort.Rate), ]
     bestRate <- rate[1, sort(1, decreasing = TRUE)]
     bestRate <- rate[1, 1]
-    bestRate
+    as.character(bestRate)
 }

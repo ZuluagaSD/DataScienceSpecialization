@@ -57,7 +57,6 @@ rankhospital <- function(state, outcome,  num = "best") {
     tmpData[, 1] <- as.factor(tmpData[, 1])
     tmpData <- tmpData[order(tmpData$Mort.Rate, tmpData$Hospital.Name, decreasing = FALSE), ]
     tmpData <- tmpData[complete.cases(tmpData), ]
-    tmpData
     
     if (num == "best") {
         num <- c(1)
@@ -73,5 +72,5 @@ rankhospital <- function(state, outcome,  num = "best") {
     if (is.na(bestRate)) {
         bestRate <- NA
     }
-    bestRate
+    as.character(bestRate)
 }
