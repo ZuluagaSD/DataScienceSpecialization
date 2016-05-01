@@ -27,6 +27,8 @@ best <- function(state, outcome) {
         stop(print("invalid outcome"))
     }
     
+    state <- toupper(state)
+    
     stateCounter <- dim(subset(outcomeData, outcomeData$"State" == state,
                                select = "State"))
     
@@ -55,8 +57,7 @@ best <- function(state, outcome) {
     tmpData[, 1] <- as.factor(tmpData[, 1])
     rate <- tmpData[which.min(tmpData$Mort.Rate), ]
 
-    bestRate <- rate[1, sort(1)]
+    # bestRate <- rate[1, sort(1)]
+    bestRate <- rate[1, 1]
     bestRate
 }
-
-x <- best("TX", "heart failure")
