@@ -46,9 +46,16 @@ best <- function(state, outcome) {
     
     tmpData <- subset(outcomeData, outcomeData$State == "TX",
                       select = c("Hospital.Name", qtype))
-    head(tmpData)
+    colnames(tmpData) <- c("Hospital.Name","Mort.Rate")
     
     ## rate
+    
+    tmpData[, 2] <- as.numeric(tmpData[, 2])
+    # tmpData[, 1] <- as.factor(tmpData[, 1])
+    rate <- tmpData[which.min(tmpData$Mort.Rate), ]
+
+    bestRate <- rate[1,1]
+    bestRate
 }
 
-best("TX", "heart failure")
+x <- best("TX", "heart failure")
