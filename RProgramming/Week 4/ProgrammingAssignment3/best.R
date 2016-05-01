@@ -55,9 +55,10 @@ best <- function(state, outcome) {
     
     tmpData[, 2] <- as.numeric(tmpData[, 2])
     tmpData[, 1] <- as.factor(tmpData[, 1])
-    rate <- tmpData[which.min(tmpData$Mort.Rate), ]
+    tmpData <- tmpData[order(tmpData$Hospital.Name, decreasing = TRUE), ]
 
-    # bestRate <- rate[1, sort(1)]
+    rate <- tmpData[which.min(tmpData$Mort.Rate), ]
+    bestRate <- rate[1, sort(1, decreasing = TRUE)]
     bestRate <- rate[1, 1]
     bestRate
 }
