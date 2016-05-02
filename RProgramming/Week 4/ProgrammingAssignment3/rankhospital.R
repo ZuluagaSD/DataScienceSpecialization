@@ -1,21 +1,4 @@
 
-## Download and unzip the Data Set into ProgAssignment3Files folder
-
-dataset_url <- paste("https://d396qusza40orc.cloudfront.net/rprog%2Fdata",
-                     "%2FProgAssignment3-data.zip", sep = "")
-download.file(dataset_url, "2FProgAssignment3-data.zip")
-unzip("2FProgAssignment3-data.zip", exdir = "ProgAssignment3Files")
-
-outcomeData <- read.csv("ProgAssignment3Files/outcome-of-care-measures.csv",
-                        colClasses = "character")
-hospData <- read.csv("ProgAssignment3Files/hospital-data.csv",
-                     colClasses = "character")
-
-## Histogram of the 30-day death rates from heart attack
-
-outcomeData[, 11] <- as.numeric(outcomeData[, 11])
-hist(outcomeData[, 11])
-
 rankhospital <- function(state, outcome,  num = "best") {
     ## Read outcome data
     ## Check that state and outcome are valid
