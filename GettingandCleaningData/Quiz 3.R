@@ -37,3 +37,21 @@ mean(joinedData[joinedData$Income.Group == "High income: OECD", 2])
 ## GDP ranking for the "High income: nonOECD" 
 mean(joinedData[!is.na(joinedData$V2) & joinedData$Income.Group == 
                     "High income: nonOECD", 2])
+
+# Load the Gross Domestic Product data for the 190 ranked countries in this data set:
+#     
+#     https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv
+# 
+# Load the educational data from this data set:
+#     
+#     https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FEDSTATS_Country.csv
+# 
+# Match the data based on the country shortcode. How many of the IDs match? Sort the data frame in descending order by GDP rank (so United States is last). What is the 13th country in the resulting data frame?
+# 
+# Original data sources:
+#     
+#     http://data.worldbank.org/data-catalog/GDP-ranking-table
+# 
+# http://data.worldbank.org/data-catalog/ed-stats
+# 
+# 189 matches, 13th country is St. Kitts and Nevis
