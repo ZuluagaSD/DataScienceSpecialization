@@ -29,13 +29,17 @@ if (!file.exists("getdata-data-GDP.csv")) {
     download.file(file_url, temp)
 }
 
-GDP <- read.csv("getdata-data-GDP.csv", skip = 10, nrows = 191)
+GDP <- read.csv("getdata-data-GDP.csv", skip = 4, nrows = 191)
 GDP <- GDP[X != ""]
 GDP <- GDP[, list(X, X.1, X.3, X.4)]
-setnames(GDP, c("X", "X.1", "X.3", "X.4"), c("CountryCode", "rankingGDP", "Long.Name", "GDP"))
+setnames(GDP, c("X", "X.1", "X.3", "X.4"), c("CountryCode", "rankingGDP",
+                                             "Long.Name", "GDP"))
 
 
-temp <- read.csv("getdata-data-GDP.csv", skip = 5, nrows = 190)
+temp <- read.csv("getdata-data-GDP.csv", skip = 4, nrows = 190)
 gdp <- tbl_df(temp)
 
-sub(",", "", gdp$X.5)
+gdp <- filter(gdp, !is.na(X))
+
+gpdvalue <- sapply(select(gdp, X.4), function(v) {as.numeric(gsub("\\,","",
+                                                      as.character(v)))})
