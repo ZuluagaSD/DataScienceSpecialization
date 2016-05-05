@@ -43,3 +43,19 @@ gdp <- filter(gdp, !is.na(X))
 
 gpdvalue <- sapply(select(gdp, X.4), function(v) {as.numeric(gsub("\\,","",
                                                       as.character(v)))})
+
+mean(gpdvalue)
+
+countryNames <- select(gdp, X.3)
+
+grep("*United",countryNames)
+grep("^United",countryNames)
+grep("United$",countryNames)
+grep("*United",countryNames)
+
+library(quantmod)
+amzn = getSymbols("AMZN",auto.assign=FALSE)
+sampleTimes = index(amzn)
+
+temp <- sampleTimes[year(sampleTimes) == 2012]
+temp1 <- temp[wday(temp) == 2]
