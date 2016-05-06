@@ -9,12 +9,17 @@ dataset_url <- paste("https://d396qusza40orc.cloudfront.net/",
                      sep = "")
 
 ## Download the .zip file unless it already exists
+
 if (!file.exists("getdata-projectfiles-UCI HAR Dataset.zip")) {
     download.file(dataset_url, "getdata-projectfiles-UCI HAR Dataset.zip")
 }
 
-## Extract everything into the "UCI HAR Dataset" directory
-unzip("getdata-projectfiles-UCI HAR Dataset.zip")
+## Extract everything into the "UCI HAR Dataset" directory unless the directory
+## exists
+
+if (!file.exists("UCI HAR Dataset")) { 
+    unzip("getdata-projectfiles-UCI HAR Dataset.zip")
+}
 
 ## Start fixing the test and train data sets into a single table
 ## Read X_test.txt and X_train.txt into xtest tbl_df and change column
@@ -74,8 +79,8 @@ tidyfulldata <- rbind(testdata, traindata)
 tidyfulldata <- tidyfulldata[order(tidyfulldata$subject), ]
 write.table(tidyfulldata, file = "tidyfulldata.txt", sep = ",")
 
-## Finally create a new tbl_df called summarizedtidyfulldata by subject and activity
-## name with the mean of all variables
+## Finally create a new tbl_df called summarizedtidyfulldata by subject and
+## activity name with the mean of all variables
 
 summarizedtidyfulldata <- tidyfulldata %>%
                         group_by(subject, activity) %>%

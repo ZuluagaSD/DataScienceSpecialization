@@ -1,30 +1,107 @@
----
-title: "Untitled"
-output: github_document
----
+# Code Book
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+This is the code book for the resulting tidy data set file called "tidydata.txt"
 
-## GitHub Documents
+## Subject and Activity
 
-This is an R Markdown format used for publishing markdown documents to GitHub. When you click the **Knit** button all R code chunks are run and a markdown file (.md) suitable for publishing to GitHub is generated.
+The first tow variables found in the file are subject and activity.
 
-## Including Code
+ - Subject: the integer subject ID.
+ - Activity: the string activity name:
+  - Walking
+  - Walking Upstairs
+  - Walking Downstairs
+  - Sitting
+  - Standing
+  - Laying
 
-You can include R code in the document as follows:
+## Measurement Means
 
-```{r cars}
-summary(cars)
-```
+All variables are the mean of a measurement for each subject and activity. This is indicated by the initial Mean in the variable name. All values are floating point numbers.
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+tBodyAccmeanX
+tBodyAccmeanY
+tBodyAccmeanZ
+tGravityAccmeanX
+tGravityAccmeanY
+tGravityAccmeanZ
+tBodyAccJerkmeanX
+tBodyAccJerkmeanY
+tBodyAccJerkmeanZ
+tBodyGyromeanX
+tBodyGyromeanY
+tBodyGyromeanZ
+tBodyGyroJerkmeanX
+tBodyGyroJerkmeanY
+tBodyGyroJerkmeanZ
+tBodyAccMagmean
+tGravityAccMagmean
+tBodyAccJerkMagmean
+tBodyGyroMagmean
+tBodyGyroJerkMagmean
+fBodyAccmeanX
+fBodyAccmeanY
+fBodyAccmeanZ
+fBodyAccmeanFreqX
+fBodyAccmeanFreqY
+fBodyAccmeanFreqZ
+fBodyAccJerkmeanX
+fBodyAccJerkmeanY
+fBodyAccJerkmeanZ
+fBodyAccJerkmeanFreqX
+fBodyAccJerkmeanFreqY
+fBodyAccJerkmeanFreqZ
+fBodyGyromeanX
+fBodyGyromeanY
+fBodyGyromeanZ
+fBodyGyromeanFreqX
+fBodyGyromeanFreqY
+fBodyGyromeanFreqZ
+fBodyAccMagmean
+fBodyAccMagmeanFreq
+fBodyBodyAccJerkMagmean
+fBodyBodyAccJerkMagmeanFreq
+fBodyBodyGyroMagmean
+fBodyBodyGyroMagmeanFreq
+fBodyBodyGyroJerkMagmean
+fBodyBodyGyroJerkMagmeanFreq
+angle.tBodyAccMean.gravity.
+angle.tBodyAccJerkMean..gravityMean.
+angle.tBodyGyroMean.gravityMean.
+angle.tBodyGyroJerkMean.gravityMean.
+angle.X.gravityMean.
+angle.Y.gravityMean.
+angle.Z.gravityMean.
+tBodyAccstdX
+tBodyAccstdY
+tBodyAccstdZ
+tGravityAccstdX
+tGravityAccstdY
+tGravityAccstdZ
+tBodyAccJerkstdX
+tBodyAccJerkstdY
+tBodyAccJerkstdZ
+tBodyGyrostdX
+tBodyGyrostdY
+tBodyGyrostdZ
+tBodyGyroJerkstdX
+tBodyGyroJerkstdY
+tBodyGyroJerkstdZ
+tBodyAccMagstd
+tGravityAccMagstd
+tBodyAccJerkMagstd
+tBodyGyroMagstd
+tBodyGyroJerkMagstd
+fBodyAccstdX
+fBodyAccstdY
+fBodyAccstdZ
+fBodyAccJerkstdX
+fBodyAccJerkstdY
+fBodyAccJerkstdZ
+fBodyGyrostdX
+fBodyGyrostdY
+fBodyGyrostdZ
+fBodyAccMagstd
+fBodyBodyAccJerkMagstd
+fBodyBodyGyroMagstd
+fBodyBodyGyroJerkMagstd
