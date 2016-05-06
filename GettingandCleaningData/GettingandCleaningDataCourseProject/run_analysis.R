@@ -64,11 +64,19 @@ colnames(subjecttrain) <- c("subject")
 traindatafull <- tbl_df(cbind(subjecttrain, activitytrain, xtrain))
 
 ## Select only the columns we want, mean and standard deviation, from
-## testdatafull, traindatafull and put the result into testdata and traindata
-## and finally append both together
+## testdatafull and traindatafull, put the result into testdata and traindata
+## and finally append both together and order by subject and activity and
+## save the tbl_df as tidyfulldata and cvs file tidyfulldata.txt
 
-testdata <- select(testdatafull, contains("mean"), contains("std"))
-traindata <- select(traindatafull, contains("mean"), contains("std"))
-tidydata <- rbind(testdata, traindata)
+testdata <- select(testdatafull, 1:2, contains("mean"), contains("std"))
+traindata <- select(traindatafull, 1:2, contains("mean"), contains("std"))
+tidyfulldata <- rbind(testdata, traindata)
+tidyfulldata <- tidyfulldata[order(tidyfulldata$subject), ]
+write.table(tidyfulldata, file = "tidyfulldata.txt", sep = ",")
 
-################################ Testing ####################################
+## Finally create a new tbl_df called summarizedtidyfulldata by subject and activity
+## name with the mean of all variables
+
+summarizedtidyfulldata <- tidyfulldata %>%
+                        group_by(subject, activity) %>%
+                        summarise_each(funs(mean))

@@ -24,6 +24,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Except this file
+!tidyfulldata.txt
+
 # =========================
 # Operating System Files
 # =========================
