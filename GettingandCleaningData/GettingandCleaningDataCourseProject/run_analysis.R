@@ -16,39 +16,59 @@ if (!file.exists("getdata-projectfiles-UCI HAR Dataset.zip")) {
 ## Extract everything into the "UCI HAR Dataset" directory
 unzip("getdata-projectfiles-UCI HAR Dataset.zip")
 
-## Start fixing the test data set into one single table
-## Read X_test.txt into xtest tbl_df and change column names to corespond
-## to the ones in features.txt file
+## Start fixing the test and train data sets into a single table
+## Read X_test.txt and X_train.txt into xtest tbl_df and change column
+## names to corespond to the ones in features.txt file
 
 tmpfeatures <- read.table("UCI HAR Dataset/features.txt")
 features <- as.vector(tmpfeatures[, 2])
+
+## Make variable names more readable by removing especial characters like "-"
+## and "()" and making the variable names Syntactically Valid with the function
+## make.names
+features <- gsub("-", "", features)
+features <- gsub("\\(\\)", "", features)
+features <- make.names(features, unique = TRUE)
 xtest <- tbl_df(read.table("UCI HAR Dataset/test/X_test.txt"))
 colnames(xtest) <- as.vector(features)
 
+xtrain <- tbl_df(read.table("UCI HAR Dataset/train/X_train.txt"))
+colnames(xtrain) <- as.vector(features)
+
 ## Read y_test.txt and activity_labels.txt and join them together into
-## activitytest tbl_df called activitytest, delete the column with the integer
-## value and rename the descriptive value as activity
+## activitytest and activitytrain tbl_df called activitytest and activitytrain 
+## respectibly, delete the column with the integer value and rename the
+## descriptive value as activity
+
+activitylabels <- tbl_df(read.table("UCI HAR Dataset/activity_labels.txt"))
 
 activitytest <- tbl_df(read.table("UCI HAR Dataset/test/y_test.txt"))
-activitylabels <- tbl_df(read.table("UCI HAR Dataset/activity_labels.txt"))
 activitytest <- inner_join(activitytest, activitylabels, by.x = V1, by.y = V1)
 activitytest <- select(activitytest, V2)
 colnames(activitytest) <- c("activity")
 
+activitytrain <- tbl_df(read.table("UCI HAR Dataset/train/y_train.txt"))
+activitytrain <- inner_join(activitytrain, activitylabels, by.x = V1, by.y = V1)
+activitytrain <- select(activitytrain, V2)
+colnames(activitytrain) <- c("activity")
+
 ## Read subject_test.txt into tbl_df subjecttest and name subjecttest column
-## as subject, finally bind all files together
+## as subject, finally bind all files together into tbl_df testdatafull
 
 subjecttest <- tbl_df(read.table("UCI HAR Dataset/test/subject_test.txt"))
 colnames(subjecttest) <- c("subject")
-testdata <- tbl_df(cbind(subjecttest, activitytest, xtest))
+testdatafull <- tbl_df(cbind(subjecttest, activitytest, xtest))
 
-## Select only the columns we want, mean and standard deviation
+subjecttrain <- tbl_df(read.table("UCI HAR Dataset/train/subject_train.txt"))
+colnames(subjecttrain) <- c("subject")
+traindatafull <- tbl_df(cbind(subjecttrain, activitytrain, xtrain))
 
+## Select only the columns we want, mean and standard deviation, from
+## testdatafull, traindatafull and put the result into testdata and traindata
+## and finally append both together
 
+testdata <- select(testdatafull, contains("mean"), contains("std"))
+traindata <- select(traindatafull, contains("mean"), contains("std"))
+tidydata <- rbind(testdata, traindata)
 
 ################################ Testing ####################################
-
-select(xtest, contains("mean"), contains("std"))
-
-x <- as.data.frame(names(xtest)[duplicated(names(xtest))])
-order(x$`names(xtest)[duplicated(names(xtest))]`)
