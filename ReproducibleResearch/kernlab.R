@@ -38,3 +38,25 @@ for (i in 1:55) {
 
 ## Which predictor has minimum cross-validate error?
 names(trainSpam)[which.min(cvError)]
+
+## Use the best model from the group
+
+predictionModel <- glm (numType ~ charDollar, family = "binomial", data = trainSpam)
+
+## Get predictions on the test set
+
+predictionTest <- predict(predictionModel, testSpam)
+
+predictedSpam <- rep("nonspam", dim(testSpam)[1])
+
+## Classify as 'spam' for those with prob > 0.5
+
+predictedSpam[predictionModel$fitted > 0.5] = "spam"
+
+## Classification table
+
+table(predictedSpam, testSpam$type)
+
+## Error rate
+(61 + 458) / (1346 + 458 + 61 + 449)
+
